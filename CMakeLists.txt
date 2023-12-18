@@ -29,6 +29,15 @@ target_link_libraries(alpha_zero_env PRIVATE "${TORCH_LIBRARIES}")
 target_compile_definitions(alpha_zero_env PRIVATE VERSION_INFO=${EXAMPLE_VERSION_INFO})
 
 if (MSVC)
+# The following code block is suggested to be used on Windows.
+# According to https://github.com/pytorch/pytorch/issues/25457,
+# the DLLs need to be copied to avoid memory errors.
+  file(GLOB TORCH_DLLS "${TORCH_INSTALL_PREFIX}/lib/*.dll")
+  add_custom_command(TARGET alpha_zero_env
+                     POST_BUILD
+                     COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                     ${TORCH_DLLS}
+                     $<TARGET_FILE_DIR:alpha_zero_env>)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
 else()
   set(CMAKE_CXX_STANDARD 17)
