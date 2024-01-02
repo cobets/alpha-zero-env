@@ -20,7 +20,7 @@ include_directories(${TORCH_INCLUDE_DIRS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
 
 add_subdirectory(pybind11)
-pybind11_add_module(alpha_zero_env src/main.cpp)
+pybind11_add_module(alpha_zero_env src/main.cpp src/libtorch.cpp src/mcts.cpp)
 
 target_link_libraries(alpha_zero_env PRIVATE "${TORCH_LIBRARIES}")
 

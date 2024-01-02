@@ -7,3 +7,7 @@ _generate/
 *.egg-info
 *env*
 /.idea/
+/tests/models/best_checkpoint
+/tests/models/best_checkpoint.pt
+/tests/models/checkpoint
+/tests/models/checkpoint.pt
