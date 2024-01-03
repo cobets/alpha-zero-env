@@ -191,7 +191,7 @@ std::vector<double> MCTS::get_action_probs(BoardGame *gomoku, double temp) {
 
   for (unsigned int i = 0; i < this->num_mcts_sims; i++) {
     // copy gomoku
-    auto game = gomoku->clone();
+    auto game = std::shared_ptr<BoardGame>(gomoku->clone());
     auto future =
         this->thread_pool->commit(std::bind(&MCTS::simulate, this, game));
 

@@ -127,7 +127,7 @@ class CMakeBuild(build_ext):
 # logic and declaration, and simpler if you include description/version in a file.
 setup(
     name="alpha_zero_env",
-    version="0.0.10",
+    version="0.0.11",
     author="Dean Moldovan",
     author_email="dean0x7d@gmail.com",
     description="Alpha Zero Env Python module",

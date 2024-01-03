@@ -6,89 +6,13 @@
 #define STRINGIFY(x) #x
 #define MACRO_STRINGIFY(x) STRINGIFY(x)
 
-class PyBoardGame: public BoardGame {
-public:
-    using BoardGame::BoardGame;
-    bool has_legal_moves() override {
-        PYBIND11_OVERRIDE_PURE(
-            bool,
-            BoardGame,
-            has_legal_moves,
-        );
-    }
-    std::vector<int> get_legal_moves() override {
-        PYBIND11_OVERRIDE_PURE(
-            std::vector<int>,
-            BoardGame,
-            get_legal_moves,
-        );
-    }
-    void execute_move(int move) override {
-        PYBIND11_OVERRIDE_PURE(
-            void,
-            BoardGame,
-            execute_move,
-            move
-        );
-    }
-    std::vector<int> get_game_status() override {
-        PYBIND11_OVERRIDE_PURE(
-            std::vector<int>,
-            BoardGame,
-            get_game_status,
-        );
-    }
-    void display() override {
-        PYBIND11_OVERRIDE_PURE(
-            void,
-            BoardGame,
-            display,
-        );
-    }
-    unsigned int get_action_size() override {
-        PYBIND11_OVERRIDE_PURE(
-            unsigned int,
-            BoardGame,
-            get_action_size,
-        );
-    }
-    std::vector<std::vector<int>> get_board() override {
-        PYBIND11_OVERRIDE_PURE(
-            std::vector<std::vector<int>>,
-            BoardGame,
-            get_board,
-        );
-    }
-    int get_last_move() override {
-        PYBIND11_OVERRIDE_PURE(
-            int,
-            BoardGame,
-            get_last_move,
-        );
-    }
-    int get_current_color() override {
-        PYBIND11_OVERRIDE_PURE(
-            int,
-            BoardGame,
-            get_current_color,
-        );
-    }
-    unsigned int get_n() override {
-        PYBIND11_OVERRIDE_PURE(
-            unsigned int,
-            BoardGame,
-            get_n,
-        );
-    }
-};
-
 namespace py = pybind11;
 
 PYBIND11_MODULE(alpha_zero_env, m) {
     m.def("add", &add);
     m.def("v", &v);
-    py::class_<BoardGame, PyBoardGame>(m, "BoardGame")
-        .def(py::init<>())
+    py::class_<BoardGame>(m, "BoardGame")
+        .def(py::init<unsigned int, unsigned int, int>())
         .def("has_legal_moves", &BoardGame::has_legal_moves)
         .def("get_legal_moves", &BoardGame::get_legal_moves)
         .def("execute_move", &BoardGame::execute_move)
